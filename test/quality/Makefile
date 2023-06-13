@@ -61,7 +61,7 @@ clear-results: venv ## Clear all existing yardstick results
 .PHONY: clean
 clean: clear-results ## Clear all existing yardstick results and delete python environment
 	rm -rf venv
-	find -iname "*.pyc" -delete
+	find . -iname "*.pyc" -delete
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "$(BOLD)$(CYAN)%-25s$(RESET)%s\n", $$1, $$2}'

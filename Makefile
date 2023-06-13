@@ -97,7 +97,7 @@ validate-cyclonedx-schema:
 .PHONY: validate-grype-db-schema
 validate-grype-db-schema:
 	# ensure the codebase is only referencing a single grype-db schema version, multiple is not allowed
-	python test/validate-grype-db-schema.py
+	python3 test/validate-grype-db-schema.py
 
 
 ## Bootstrapping targets #################################
@@ -142,7 +142,7 @@ lint:  ## Run gofmt + golangci lint checks
 	@[ -z "$(shell $(GOIMPORTS_CMD) -d .)" ] || (echo "goimports needs to be fixed" && false)
 
 	# go tooling does not play well with certain filename characters, ensure the common cases don't result in future "go get" failures
-	$(eval MALFORMED_FILENAMES := $(shell find . | grep -e ':'))
+	$(eval MALFORMED_FILENAMES := $(shell find . -path test/quality/.yardstick/result -prune | grep -e ':'))
 	@bash -c "[[ '$(MALFORMED_FILENAMES)' == '' ]] || (printf '\nfound unsupported filename characters:\n$(MALFORMED_FILENAMES)\n\n' && false)"
 
 .PHONY: format
